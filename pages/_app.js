@@ -1,7 +1,26 @@
-import '../styles/globals.css'
+import styled from 'styled-components';
+import { ToastContainer } from 'react-toastify';
+
+import '../public/global.css';
+import Navbar from '../components/Nav.component';
+import { UserProvider } from '../context';
 
 function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+  return (
+    <>
+      <UserProvider>
+        <Navbar />
+        <ToastContainer position="top-center" />
+        <AppWrapper>
+          <Component {...pageProps} />
+        </AppWrapper>
+      </UserProvider>
+    </>
+  );
 }
 
-export default MyApp
+const AppWrapper = styled.div`
+  min-height: calc(100vh - 3.3rem);
+`;
+
+export default MyApp;
