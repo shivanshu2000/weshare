@@ -35,7 +35,7 @@ const Container = styled.div`
 
 const Modal = styled.div`
   position: fixed;
-  border-radius: 15px;
+  border-radius: 7px;
   top: 50%;
   left: 50%;
   z-index: 200;
@@ -45,6 +45,11 @@ const Modal = styled.div`
   background: white;
   /* opacity: 0; */
   transform: translate(-50%, -50%);
+  &::-webkit-scrollbar {
+    height: 0px;
+    width: 0px;
+  }
+
   &.modal__schedule {
     width: ${(props) => props.width};
     height: ${(props) => props.height};

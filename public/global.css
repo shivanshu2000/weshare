@@ -29,3 +29,18 @@ a {
 svg {
   cursor: pointer;
 }
+
+.raw__input {
+  border: none;
+  border: 1px solid #ccc;
+  outline: none;
+  width: 100%;
+  border-radius: 7px;
+  padding: 0.5rem 1.1rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.raw__input:focus {
+  outline: none;
+  border: 1px solid #0c4370;
+}

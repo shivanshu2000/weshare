@@ -20,7 +20,7 @@ export default function Navbar() {
           Feed
         </Link>
         <Link href="/dashboard" className="left-link">
-          Dashboard
+          Profile
         </Link>
         <RightItems>
           {state.token ? (

@@ -1,8 +1,16 @@
 import styled from 'styled-components';
 import renderHTML from 'react-render-html';
 import moment from 'moment';
+import { UserContext } from '../context';
+import { useContext, useEffect } from 'react';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faComment, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import {
+  faThumbsUp,
+  faComment,
+  faEdit,
+  faTrash,
+} from '@fortawesome/free-solid-svg-icons';
 import {
   faThumbsUp as farThumbsUp,
   faComment as farComment,
@@ -10,6 +18,8 @@ import {
 } from '@fortawesome/free-regular-svg-icons';
 
 import CustomAvatar from './CustomAvatar.component';
+import { useState } from 'react';
+import axios from 'axios';
 
 export default function Post({
   post,
@@ -17,9 +27,38 @@ export default function Post({
   setOpenEditModal,
   handleEditPostData,
   handleDeletePost,
+  handleLike,
+  handleUnlike,
+  dontShowDetailsModal,
+  dontShowCommentModal,
   edit = true,
+  seeComments,
+  handleCommentModal,
 }) {
   const Container = edit ? Card : HomeCard;
+
+  const [state, setState] = useContext(UserContext);
+  const [like, setLike] = useState(post.likes.includes(state.user?._id));
+  const [likesCount, setLikesCount] = useState(0);
+  const [commentsCount, setCommentsCount] = useState(0);
+
+  useEffect(() => {
+    getLikesCount();
+  }, [post.comments.length]);
+
+  const getLikesCount = async () => {
+    try {
+      const { data } = await axios.get(
+        `${process.env.NEXT_PUBLIC_API}/posts/likeCount/${post._id}`
+      );
+      const count = data.likes[0].total_likes;
+      const commentCount = data.likes[0].total_comments;
+      setLikesCount(count * 1);
+      setCommentsCount(commentCount * 1);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <Container>
@@ -31,7 +70,12 @@ export default function Post({
             alignItems: 'center',
           }}
         >
-          <CustomAvatar name={post.postedBy.name[0]} />
+          <CustomAvatar
+            dontShowDetailsModal={dontShowDetailsModal}
+            name={post.postedBy.name[0]}
+            id={post.postedBy._id}
+          />
+
           <div style={{ marginLeft: '7px' }}>{post.postedBy.name}</div>
         </div>
         <div>{moment(post.createdAt).fromNow()}</div>
@@ -53,10 +97,34 @@ export default function Post({
       </MiddleContainer>
 
       <BottomContainer>
-        <div>
-          <FontAwesomeIcon icon={farThumbsUp} />
-          <FontAwesomeIcon icon={farComment} />
-        </div>
+        {!dontShowCommentModal && (
+          <>
+            <div>
+              <FontAwesomeIcon
+                onClick={() => {
+                  if (like) {
+                    handleUnlike(post._id);
+                    setLikesCount(likesCount - 1);
+                  } else {
+                    handleLike(post._id);
+                    setLikesCount(likesCount + 1);
+                  }
+                  setLike(!like);
+                }}
+                icon={like ? faThumbsUp : farThumbsUp}
+              />
+              <Count>{likesCount}</Count>
+              <FontAwesomeIcon
+                onClick={() => handleCommentModal(post._id, i)}
+                icon={farComment}
+              />
+              <Count>{commentsCount}</Count>
+            </div>
+            <ViewComments onClick={() => seeComments(post.comments, i)}>
+              View all comments
+            </ViewComments>
+          </>
+        )}
         {edit && (
           <div>
             <FontAwesomeIcon
@@ -165,6 +233,12 @@ const Content = styled.div`
   padding: 3px;
 `;
 
+const Count = styled.span`
+  font-size: 14px;
+  font-weight: bold;
+  margin-right: 7px;
+`;
+
 const BottomContainer = styled.div`
   display: flex;
   justify-content: space-between;
@@ -176,4 +250,11 @@ const BottomContainer = styled.div`
     margin: 0 7px;
     color: #0c4370;
   }
+`;
+
+const ViewComments = styled.div`
+  color: #0c4370;
+  font-size: 13px;
+  cursor: pointer;
+  font-weight: bold;
 `;

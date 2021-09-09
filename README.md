@@ -1,34 +1,59 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Weshare
 
-## Getting Started
+## Overview
 
-First, run the development server:
+A photo sharing app having a bunch of features as there are in social media apps
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+## Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- User registration
+- Create, edit and delete post (including image upload)
+- Follow / unfollow other users
+- Like / unlike the posts
+- Comment on the posts (and delete)
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## API
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+Api is created with Node.js and Express.js and images are stored in cloudinary [Repo Link](https://github.com/shivanshu2000/weshare-api)
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## Here are some screenshots:
 
-## Learn More
+<div style="margin-top:3rem"></div>
 
-To learn more about Next.js, take a look at the following resources:
+<div style="font-size:1.3rem;font-weight:bold;margin-bottom:1rem"> feed page where users can like, comment and follow other users:</div>
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+<div align = "center">
+    <img src="screenshots/feed.png" width="auto" height="100%">
+ </div>
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+ <div style="margin-top:3rem"></div>
 
-## Deploy on Vercel
+<div style="font-size:1.3rem;font-weight:bold;margin-bottom:1rem"> profile page where users can create(with react-quill editor), edit and delete their posts:</div>
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+<div align = "center">
+    <img src="screenshots/profile.png" width="auto" height="100%">
+ </div>
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+ <div style="margin-top:3rem"></div>
+
+<div style="font-size:1.3rem;font-weight:bold;margin-bottom:1rem"> in profile page, users can unfollow the users and also remove the users from their followers list:</div>
+
+<div align = "center">
+    <img src="screenshots/followAndUnfollow.png" width="auto" height="100%">
+ </div>
+
+ <div style="margin-top:3rem"></div>
+
+<div style="font-size:1.3rem;font-weight:bold;margin-bottom:1rem"> users can comment on the posts and also delete the comments which are either on their own post or the ones they created on the other users posts:</div>
+
+<div align = "center">
+    <img src ="screenshots/comments.png" width="auto" height="100%">
+ </div>
+
+ <div style="margin-top:3rem"></div>
+
+<div style="font-size:1.3rem;font-weight:bold;margin-bottom:1rem"> on the feed page users can see the details of other users by clicking on the avatar icon</div>
+
+<div align = "center">
+    <img src="screenshots/userDetails.png" width="auto" height="100%">
+ </div>

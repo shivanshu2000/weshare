@@ -115,10 +115,11 @@ export default function Login() {
 
 export const Layout = styled.div`
   width: 100%;
+  padding: 2.5rem 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: calc(100vh - 3.3rem);
+  min-height: calc(100vh - 3.3rem);
 `;
 
 export const Wrapper = styled.div`

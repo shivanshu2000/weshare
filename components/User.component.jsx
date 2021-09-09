@@ -4,22 +4,33 @@ import CustomAvatar from './CustomAvatar.component';
 export default function User({
   user,
   handleFollow,
-  followed,
+  followed = [],
   unfollow = false,
   handleUnfollow,
+  handleRemoveFollower,
   i,
+  remove = false,
 }) {
   return (
     <UserCard>
       <LeftContainer>
-        <CustomAvatar name={user.name[0]} width="35px" height="35px" />
+        <CustomAvatar
+          name={user.name[0]}
+          width="35px"
+          height="35px"
+          id={user._id}
+        />
         <InfoContainer>
           <div>{user.name}</div>
 
           {!unfollow && <SmallText>Suggested for you</SmallText>}
         </InfoContainer>
       </LeftContainer>
-      {unfollow ? (
+      {remove ? (
+        <Follow onClick={() => handleRemoveFollower(i, user._id)}>
+          Remove
+        </Follow>
+      ) : unfollow ? (
         <Follow onClick={() => handleUnfollow(i, user._id)}>Unfollow</Follow>
       ) : (
         <Follow onClick={() => handleFollow(user._id)}>

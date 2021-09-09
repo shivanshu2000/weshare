@@ -9,6 +9,11 @@ const UserProvider = ({ children }) => {
     user: null,
     token: null,
     initialized: false,
+    userDetails: {
+      openModal: false,
+      user: null,
+      name: '',
+    },
   });
 
   const router = useRouter();
@@ -16,6 +21,7 @@ const UserProvider = ({ children }) => {
   useEffect(() => {
     const userInfo = JSON.parse(window.localStorage.getItem('userInfo'));
     setState({
+      ...state,
       user: userInfo?.user,
       token: userInfo?.token,
       initialized: true,

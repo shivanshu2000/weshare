@@ -6,8 +6,15 @@ export default function Posts({
   handleDeletePost,
   setOpenEditModal,
   handleEditPostData,
+  handleLike,
+  seeComments,
+  handleUnlike,
+  setOpenCommentModal,
   home = false,
   edit,
+  dontShowCommentModal = false,
+  dontShowDetailsModal = false,
+  handleCommentModal,
 }) {
   return (
     <>
@@ -18,9 +25,13 @@ export default function Posts({
               key={post._id}
               post={post}
               i={i}
+              handleLike={handleLike}
+              seeComments={seeComments}
+              handleUnlike={handleUnlike}
               handleDeletePost={handleDeletePost}
               handleEditPostData={handleEditPostData}
               setOpenEditModal={setOpenEditModal}
+              handleCommentModal={handleCommentModal}
               edit={edit}
             />
           ))}
@@ -29,9 +40,12 @@ export default function Posts({
         <Container>
           {posts.map((post, i) => (
             <Post
+              dontShowCommentModal={dontShowCommentModal}
               key={post._id}
               post={post}
               i={i}
+              dontShowDetailsModal={dontShowDetailsModal}
+              setOpenCommentModal={setOpenCommentModal}
               handleDeletePost={handleDeletePost}
               handleEditPostData={handleEditPostData}
               setOpenEditModal={setOpenEditModal}

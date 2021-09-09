@@ -1,5 +1,6 @@
 import PrivateRoute from '../components/PrivateRoute';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 import { useState, useContext, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import dynamic from 'next/dynamic';
@@ -16,7 +17,7 @@ import { toast } from 'react-toastify';
 import Spinner from '../components/Spinner.component';
 import Posts from '../components/Posts.component';
 import Modal from '../components/Modal.component';
-import { SpinnerContainer } from '../common/styled';
+import { LinkButton, SpinnerContainer } from '../common/styled';
 import User from '../components/User.component';
 
 export default function Dashboard() {
@@ -48,7 +49,6 @@ export default function Dashboard() {
   }, [state.token, run]);
 
   const handleEditPostData = (i) => {
-    console.log(posts[i]);
     const post = posts[i];
 
     setEditContent({ id: post._id, content: post.content });
@@ -138,6 +138,8 @@ export default function Dashboard() {
         }
       );
 
+      console.log(data);
+
       setUploadingPost(false);
       setContent(null);
       setImage(null);
@@ -205,11 +207,12 @@ export default function Dashboard() {
         }
       );
       setFollowers(data.followers);
-      openFollowersModal(true);
+      setOpenFollowersModal(true);
     } catch (err) {
       if (err.response) {
         toast.error(err.response.data.error);
       } else {
+        console.log(err);
         toast.error('Something went wrong.');
       }
       setUploading(false);
@@ -259,6 +262,39 @@ export default function Dashboard() {
 
       users.splice(i, 1);
 
+      setFollowing([...users]);
+    } catch (err) {
+      if (err.response) {
+        toast.error(err.response.data.error);
+      } else {
+        console.log(err);
+        toast.error('Something went wrong.');
+      }
+      setUploading(false);
+    }
+  };
+
+  const handleRemoveFollower = async (i, id) => {
+    try {
+      const { data } = await axios.put(
+        `${process.env.NEXT_PUBLIC_API}/user/remove`,
+        { id: id },
+        {
+          headers: {
+            authorization: `Bearer ${state.token}`,
+          },
+        }
+      );
+      const userInfo = JSON.parse(window.localStorage.getItem('userInfo'));
+      userInfo.user = data.user;
+
+      window.localStorage.setItem('userInfo', JSON.stringify(userInfo));
+      setState({ ...state, userInfo });
+
+      const users = followers;
+
+      users.splice(i, 1);
+
       setFollowers([...users]);
     } catch (err) {
       if (err.response) {
@@ -273,13 +309,6 @@ export default function Dashboard() {
 
   return (
     <PrivateRoute>
-      {openFollowersModal && (
-        <Modal width="600px" setOpenModal={setOpenFollowersModal}>
-          {followers.map((user) => (
-            <User user={user} key={user._id} />
-          ))}
-        </Modal>
-      )}
       {openFollowingModal && (
         <Modal
           width="600px"
@@ -301,7 +330,40 @@ export default function Dashboard() {
             </>
           ) : (
             <div style={{ textAlign: 'center', marginTop: '2.5rem' }}>
-              You have no followers.
+              <div>You're now following anyone.</div>
+              <LinkButton>
+                <Link href="/">Go to feed</Link>
+              </LinkButton>
+            </div>
+          )}
+        </Modal>
+      )}
+      {openFollowersModal && (
+        <Modal
+          width="600px"
+          height={followers.length > 0 ? '80%' : '250px'}
+          padding="0.5rem"
+          setOpenModal={setOpenFollowersModal}
+        >
+          {followers.length > 0 ? (
+            <>
+              {followers.map((user, i) => (
+                <User
+                  i={i}
+                  unfollow={true}
+                  handleRemoveFollower={handleRemoveFollower}
+                  remove={true}
+                  user={user}
+                  key={user._id}
+                />
+              ))}
+            </>
+          ) : (
+            <div style={{ textAlign: 'center', marginTop: '2.5rem' }}>
+              <div>You have no followers.</div>
+              <LinkButton>
+                <Link href="/">Go to feed</Link>
+              </LinkButton>
             </div>
           )}
         </Modal>
@@ -381,17 +443,11 @@ export default function Dashboard() {
           </ButtonContainer>
         </AddPostContainer>
         <Sidebar>
-          <SingleInfo>
-            <Title>Total posts</Title>
-            <div></div>
-          </SingleInfo>
           <SingleInfo onClick={getFollowers}>
             <Title>Followers</Title>
-            <div></div>
           </SingleInfo>
           <SingleInfo onClick={getFollowing}>
             <Title>Following</Title>
-            <div></div>
           </SingleInfo>
         </Sidebar>
       </Container>
@@ -402,6 +458,8 @@ export default function Dashboard() {
         </SpinnerContainer>
       ) : posts.length > 0 ? (
         <Posts
+          dontShowDetailsModal={true}
+          dontShowCommentModal={true}
           handleEditPostData={handleEditPostData}
           posts={posts}
           setOpenEditModal={setOpenEditModal}
@@ -494,12 +552,12 @@ const AddPostContainer = styled.div`
   }
 `;
 
-const Sidebar = styled.div`
+export const Sidebar = styled.div`
   max-height: 250px;
   overflow-y: hidden;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   flex-wrap: wrap;
   border: 1px solid #ccc;
   border-radius: 7px;
@@ -509,7 +567,7 @@ const Sidebar = styled.div`
     width: 2px;
   }
   &::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px #f2f2f2;
+    box-shadow: inset 0 0 5px #fff;
     border-radius: 10px;
   }
   &::-webkit-scrollbar-thumb {
@@ -518,7 +576,7 @@ const Sidebar = styled.div`
   }
 `;
 
-const SingleInfo = styled.div`
+export const SingleInfo = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -533,7 +591,7 @@ const SingleInfo = styled.div`
   }
 `;
 
-const Title = styled.div`
+export const Title = styled.div`
   color: #0c4370;
   font-size: 1.1rem;
   font-weight: bold;

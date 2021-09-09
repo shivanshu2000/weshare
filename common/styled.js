@@ -14,3 +14,15 @@ export const SpinnerContainer = styled.div`
   align-items: center;
   margin-top: 2.5rem;
 `;
+
+export const LinkButton = styled.div`
+  margin-top: 1.5rem;
+  & > a {
+    border: 2.5px solid #0c4370;
+    padding: 0.3rem 0.9rem;
+    border-radius: 7px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #0c4370;
+  }
+`;
