@@ -126,7 +126,8 @@ export default function Signup() {
                   ) : (
                     <Button
                       style={{
-                        backgroundColor: !dirty || !isValid ? '#ccc' : 'black',
+                        backgroundColor:
+                          !dirty || !isValid ? '#ccc' : '#0C4370',
                       }}
                       disabled={!dirty || !isValid}
                       type="submit"

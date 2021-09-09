@@ -3,6 +3,8 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 
 import { UserContext } from '../context';
+import Spinner from './Spinner.component';
+import { SpinnerContainer } from '../common/styled';
 
 export default function PrivateRoute({ children }) {
   const [verified, setVerified] = useState(false);
@@ -32,17 +34,29 @@ export default function PrivateRoute({ children }) {
     } catch (err) {
       console.log(err.response);
       setVerified(false);
-      if (
-        err.response.data.error === 'jwt expired' ||
-        err.response.data.error === 'jwt malformed'
-      ) {
-        console.log(state, 'in private route');
-        setState({ ...state, user: null, token: null });
-        window.localStorage.removeItem('userInfo');
-        router.push('/login');
+      if (err.response) {
+        if (
+          err.response.data.error === 'jwt expired' ||
+          err.response.data.error === 'jwt malformed'
+        ) {
+          console.log(state, 'in private route');
+          setState({ ...state, user: null, token: null });
+          window.localStorage.removeItem('userInfo');
+          router.push('/login');
+        }
       }
     }
   };
 
-  return <>{verified ? children : <div>Loading...</div>}</>;
+  return (
+    <>
+      {verified ? (
+        children
+      ) : (
+        <SpinnerContainer>
+          <Spinner size="5x" color="#0c4370" />
+        </SpinnerContainer>
+      )}
+    </>
+  );
 }

@@ -93,7 +93,7 @@ export default function Login() {
 
                   <Button
                     style={{
-                      backgroundColor: !isValid ? '#ccc' : 'black',
+                      backgroundColor: !isValid ? '#ccc' : '#0C4370',
                     }}
                     disabled={!isValid}
                     type="submit"
@@ -105,9 +105,6 @@ export default function Login() {
             </Formik>
             <p style={{ marginTop: '9px', textAlign: 'center' }}>
               Haven't registered yet? <Link href="/signup">Register here!</Link>
-            </p>
-            <p style={{ marginTop: '9px', textAlign: 'center' }}>
-              Forgot password? <Link href="/signup">Click here!</Link>
             </p>
           </Wrapper>
         </Layout>
@@ -145,7 +142,7 @@ export const Button = styled.button`
   width: 100%;
   display: block;
   padding: 9px 1.5rem;
-  background-color: #2d2d30;
+  background-color: #0c4370;
   font-size: 0.9rem;
   font-weight: bold;
   margin: 0 auto;

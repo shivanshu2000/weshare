@@ -5,11 +5,18 @@ export default function ModalWrapper({
   children,
   setOpenModal,
   width = '400px',
+  height = 'auto',
+  padding = '2rem',
 }) {
   return (
     <>
       <Container onClick={() => setOpenModal(false)}></Container>
-      <Modal width={width} className="modal__schedule">
+      <Modal
+        width={width}
+        height={height}
+        padding={padding}
+        className="modal__schedule"
+      >
         {children}
       </Modal>
     </>
@@ -32,13 +39,15 @@ const Modal = styled.div`
   top: 50%;
   left: 50%;
   z-index: 200;
-  padding: 2rem;
+  padding: ${(props) => props.padding};
   border: 1px solid #ccc;
+  overflow-y: scroll;
   background: white;
   /* opacity: 0; */
   transform: translate(-50%, -50%);
   &.modal__schedule {
     width: ${(props) => props.width};
+    height: ${(props) => props.height};
   }
   @media screen and (max-width: 600px) {
     &.modal__schedule {

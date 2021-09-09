@@ -22,7 +22,7 @@ export const InputContainer = styled.div`
     text-transform: uppercase;
     letter-spacing: 0.5px;
     font-size: 0.9rem;
-    color: #2d2d30;
+    color: #0c4370;
     font-weight: 600;
     margin-bottom: 0.3rem;
   }
@@ -47,6 +47,6 @@ const TextField = styled.input`
   transition: all 0.3s ease-in-out;
   &:focus {
     outline: none;
-    border: 1px solid #2d2d30;
+    border: 1px solid #0c4370;
   }
 `;

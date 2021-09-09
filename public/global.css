@@ -7,3 +7,25 @@ a {
   text-decoration: none;
   color: #551a8b;
 }
+
+.content__input {
+  border: none;
+  background: #ffffff;
+  max-height: 45px;
+  outline: none;
+  width: 100%;
+  border-radius: 15px;
+  box-sizing: border-box;
+  padding: 1.5rem 2rem;
+  border: 1px solid #ccc;
+  overflow-y: scroll;
+}
+
+.content__input::-webkit-scrollbar {
+  height: 0px;
+  width: 0px;
+}
+
+svg {
+  cursor: pointer;
+}

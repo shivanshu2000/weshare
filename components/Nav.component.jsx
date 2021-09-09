@@ -17,7 +17,7 @@ export default function Navbar() {
     <NavWrapper>
       <Nav>
         <Link href="/" className="left-link">
-          Home
+          Feed
         </Link>
         <Link href="/dashboard" className="left-link">
           Dashboard
@@ -54,7 +54,7 @@ const Nav = styled.div`
   padding: 0.7rem 1rem;
   justify-content: space-between;
   align-items: center;
-  background-color: black;
+  background-color: #0c4370;
   box-sizing: border-box;
 
   & > a {
@@ -62,6 +62,8 @@ const Nav = styled.div`
     cursor: pointer;
     color: white;
     font-size: 1rem;
+    margin: 0 9px;
+    font-weight: bold;
     letter-spacing: 1px;
   }
 `;
