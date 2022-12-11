@@ -55,7 +55,7 @@ export default function Dashboard() {
   };
   const getPosts = async () => {
     try {
-      const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API}/posts`, {
+      const { data } = await axios.get(`https://weshare-api.onrender.com/posts`, {
         headers: {
           authorization: `Bearer ${state.token}`,
         },
@@ -73,7 +73,7 @@ export default function Dashboard() {
     setEditing(true);
     try {
       await axios.patch(
-        `${process.env.NEXT_PUBLIC_API}/posts`,
+        `https://weshare-api.onrender.com/posts`,
         {
           id: editContent.id,
           content: editContent.content,
@@ -100,7 +100,7 @@ export default function Dashboard() {
   };
   const handleDeletePost = async (id) => {
     try {
-      await axios.delete(`${process.env.NEXT_PUBLIC_API}/posts/${id}`, {
+      await axios.delete(`https://weshare-api.onrender.com/posts/${id}`, {
         headers: {
           authorization: `Bearer ${state.token}`,
         },
@@ -123,7 +123,7 @@ export default function Dashboard() {
     setUploadingPost(true);
     try {
       const { data } = await axios.post(
-        `${process.env.NEXT_PUBLIC_API}/posts`,
+        `https://weshare-api.onrender.com/posts`,
         {
           content: content,
           image: {
@@ -171,7 +171,7 @@ export default function Dashboard() {
 
     try {
       const { data } = await axios.post(
-        `${process.env.NEXT_PUBLIC_API}/posts/upload-image`,
+        `https://weshare-api.onrender.com/posts/upload-image`,
         formData,
         {
           headers: {
@@ -199,7 +199,7 @@ export default function Dashboard() {
   const getFollowers = async () => {
     try {
       const { data } = await axios.get(
-        `${process.env.NEXT_PUBLIC_API}/user/followers`,
+        `https://weshare-api.onrender.com/user/followers`,
         {
           headers: {
             authorization: `Bearer ${state.token}`,
@@ -221,7 +221,7 @@ export default function Dashboard() {
   const getFollowing = async () => {
     try {
       const { data } = await axios.get(
-        `${process.env.NEXT_PUBLIC_API}/user/following`,
+        `https://weshare-api.onrender.com/user/following`,
         {
           headers: {
             authorization: `Bearer ${state.token}`,
@@ -244,7 +244,7 @@ export default function Dashboard() {
   const handleUnfollow = async (i, id) => {
     try {
       const { data } = await axios.put(
-        `${process.env.NEXT_PUBLIC_API}/user/unfollow`,
+        `https://weshare-api.onrender.com/user/unfollow`,
         { id: id },
         {
           headers: {
@@ -277,7 +277,7 @@ export default function Dashboard() {
   const handleRemoveFollower = async (i, id) => {
     try {
       const { data } = await axios.put(
-        `${process.env.NEXT_PUBLIC_API}/user/remove`,
+        `https://weshare-api.onrender.com/user/remove`,
         { id: id },
         {
           headers: {

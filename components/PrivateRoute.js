@@ -22,7 +22,7 @@ export default function PrivateRoute({ children }) {
   const getCurrentUser = async () => {
     try {
       const { data } = await axios.get(
-        `${process.env.NEXT_PUBLIC_API}/user/current-user`,
+        `https://weshare-api.onrender.com/user/current-user`,
         {
           headers: {
             authorization: `Bearer ${state.token}`,
