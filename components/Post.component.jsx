@@ -49,7 +49,7 @@ export default function Post({
   const getLikesCount = async () => {
     try {
       const { data } = await axios.get(
-        `https://weshare-api.onrender.com/posts/likeCount/${post._id}`
+        `${process.env.NEXT_PUBLIC_API || 'https://weshare-api.onrender.com/api'}/posts/likeCount/${post._id}`
       );
       const count = data.likes[0].total_likes;
       const commentCount = data.likes[0].total_comments;

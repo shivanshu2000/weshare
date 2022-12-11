@@ -47,7 +47,7 @@ export default function Home() {
   const fetchPosts = async () => {
     try {
       const { data } = await axios.get(
-        `https://weshare-api.onrender.com/posts/feed`,
+        `${process.env.NEXT_PUBLIC_API || 'https://weshare-api.onrender.com/api'}/posts/feed`,
         {
           headers: {
             authorization: `Bearer ${state.token}`,
@@ -69,7 +69,7 @@ export default function Home() {
   const fetchPeople = async () => {
     try {
       const { data } = await axios.get(
-        `https://weshare-api.onrender.com/user/people`,
+        `${process.env.NEXT_PUBLIC_API || 'https://weshare-api.onrender.com/api'}/user/people`,
         {
           headers: {
             authorization: `Bearer ${state.token}`,
@@ -91,7 +91,7 @@ export default function Home() {
   const handleFollow = async (id) => {
     try {
       const { data } = await axios.put(
-        `https://weshare-api.onrender.com/user/follow`,
+        `${process.env.NEXT_PUBLIC_API || 'https://weshare-api.onrender.com/api'}/user/follow`,
         { id: id },
         {
           headers: {
@@ -119,7 +119,7 @@ export default function Home() {
   const handleLike = async (id) => {
     try {
       const { data } = await axios.post(
-        `https://weshare-api.onrender.com/posts/like`,
+        `${process.env.NEXT_PUBLIC_API || 'https://weshare-api.onrender.com/api'}/posts/like`,
         { id },
         {
           headers: {
@@ -140,7 +140,7 @@ export default function Home() {
   const handleUnlike = async (id) => {
     try {
       const { data } = await axios.post(
-        `https://weshare-api.onrender.com/posts/unlike`,
+        `${process.env.NEXT_PUBLIC_API || 'https://weshare-api.onrender.com/api'}/posts/unlike`,
         { id },
         {
           headers: {
@@ -174,7 +174,7 @@ export default function Home() {
 
     try {
       const { data } = await axios.post(
-        `https://weshare-api.onrender.com/posts/comment`,
+        `${process.env.NEXT_PUBLIC_API || 'https://weshare-api.onrender.com/api'}/posts/comment`,
         {
           comment,
           id: postId,
@@ -208,7 +208,7 @@ export default function Home() {
   const handleDeleteComment = async (cemmentId, postId, postIndex) => {
     try {
       const { data } = await axios.put(
-        `https://weshare-api.onrender.com/posts/comment`,
+        `${process.env.NEXT_PUBLIC_API || 'https://weshare-api.onrender.com/api'}/posts/comment`,
         {
           commentId: cemmentId,
           postId: postId,

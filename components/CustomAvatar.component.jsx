@@ -17,7 +17,7 @@ export default function CustomAvatar({
 
     try {
       const { data } = await axios.get(
-        `https://weshare-api.onrender.com/user/${id}`
+        `${process.env.NEXT_PUBLIC_API || 'https://weshare-api.onrender.com/api'}/user/${id}`
       );
 
       const followers = data.followersCount[0].total_followers;

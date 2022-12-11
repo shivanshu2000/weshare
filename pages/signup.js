@@ -34,7 +34,7 @@ export default function Signup() {
     setFormError(null);
     try {
       const res = await axios.post(
-        `https://weshare-api.onrender.com/user/signup`,
+        `${process.env.NEXT_PUBLIC_API || 'https://weshare-api.onrender.com/api'}/user/signup`,
         {
           name,
           email,

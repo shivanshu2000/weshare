@@ -28,7 +28,7 @@ export default function Login() {
     setFormError(null);
     try {
       const { data } = await axios.post(
-        `https://weshare-api.onrender.com/user/login`,
+        `${process.env.NEXT_PUBLIC_API || 'https://weshare-api.onrender.com/api'}/user/login`,
         {
           email,
           password,
